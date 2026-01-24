@@ -19,19 +19,17 @@ public class LessonService {
     public Lesson addLesson(long courseId, String title, String content) {
         if (title == null || title.trim().length() < 3)
             throw new IllegalArgumentException("Lesson title must be at least 3 chars");
-        int position = 0;
-        if (position <= 0)
-            throw new IllegalArgumentException("Position must be > 0");
 
         if (courseRepo.findById(courseId).isEmpty())
             throw new NotFoundException("Course not found: id=" + courseId);
 
-        return lessonRepo.create(new Lesson(0, courseId, title.trim(), content, position));
+        return lessonRepo.create(new Lesson(0, courseId, title.trim(), content));
     }
 
     public List<Lesson> listLessons(long courseId) {
         if (courseRepo.findById(courseId).isEmpty())
             throw new NotFoundException("Course not found: id=" + courseId);
+
         return lessonRepo.findByCourse(courseId);
     }
 }
