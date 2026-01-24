@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        // Өз DB-ңе қарай ауыстыр
         IDB db = new PostgresDB(
                 "jdbc:postgresql://localhost:5432/online_learning",
                 "postgres",
