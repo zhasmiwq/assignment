@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class PostgresDB implements IDB {
-    private final String url;
-    private final String user;
-    private final String password;
+    private String url= "aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require\"";
+    private String user= "postgres.gmnhoitoccbzuveofkns";
+    private String password="askarova0910";
 
     public PostgresDB(String url, String user, String password) {
         this.url = url;
