@@ -1,9 +1,11 @@
-import oop2026_groupIT25XX_online_learning.data.IDB;
-import oop2026_groupIT25XX_online_learning.data.PostgresDB;
-import oop2026_groupIT25XX_online_learning.exceptions.DatabaseException;
-import oop2026_groupIT25XX_online_learning.exceptions.NotFoundException;
-import oop2026_groupIT25XX_online_learning.repositories.*;
-import oop2026_groupIT25XX_online_learning.services.*;
+import edu.aitu.oop3.data.IDB;
+import edu.aitu.oop3.data.PostgresDB;
+import edu.aitu.oop3.exceptions.DatabaseException;
+import edu.aitu.oop3.exceptions.NotFoundException;
+import edu.aitu.oop3.repositories.*;
+import edu.aitu.oop3.services.CourseService;
+import edu.aitu.oop3.services.LessonService;
+import edu.aitu.oop3.services.UserService;
 
 import java.util.Scanner;
 public class Main {
