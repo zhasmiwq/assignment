@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl {
     private final IDB db;
 
     public UserRepositoryImpl(IDB db) {

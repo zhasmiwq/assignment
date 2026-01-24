@@ -1,16 +1,15 @@
 package edu.aitu.oop3.repositories;
-package oop2026_groupIT25XX_online_learning.repositories;
 
-import oop2026_groupIT25XX_online_learning.data.IDB;
-import oop2026_groupIT25XX_online_learning.entities.Course;
-import oop2026_groupIT25XX_online_learning.exceptions.DatabaseException;
+import edu.aitu.oop3.data.IDB;
+import edu.aitu.oop3.entities.Course;
+import edu.aitu.oop3.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CourseRepositoryImpl implements CourseRepository {
+public class CourseRepositoryImpl extends CourseRepository {
     private final IDB db;
 
     public CourseRepositoryImpl(IDB db) {
@@ -19,7 +18,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public Course create(Course course) {
-        String sql = "insert into courses(title, description, teacher_id) values (?,?,?) returning id";
+        String sql = "insert into courses(title, description, teacher_id) values () returning id";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
