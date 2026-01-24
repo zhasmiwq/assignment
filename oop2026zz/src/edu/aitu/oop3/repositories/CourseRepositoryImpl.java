@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CourseRepositoryImpl extends CourseRepository {
+public class CourseRepositoryImpl {
     private final IDB db;
 
     public CourseRepositoryImpl(IDB db) {

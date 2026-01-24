@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class LessonRepositoryImpl implements LessonRepository {
+public class LessonRepositoryImpl {
     private final IDB db;
 
     public LessonRepositoryImpl(IDB db) {
