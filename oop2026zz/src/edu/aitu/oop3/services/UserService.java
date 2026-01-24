@@ -1,8 +1,8 @@
 package edu.aitu.oop3.services;
 
-import oop2026_groupIT25XX_online_learning.entities.User;
-import oop2026_groupIT25XX_online_learning.exceptions.NotFoundException;
-import oop2026_groupIT25XX_online_learning.repositories.UserRepository;
+import edu.aitu.oop3.entities.User;
+import edu.aitu.oop3.exceptions.NotFoundException;
+import edu.aitu.oop3.repositories.UserRepository;
 
 public class UserService {
     private final UserRepository repo;
