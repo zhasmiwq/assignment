@@ -1,6 +1,6 @@
 package edu.aitu.oop3.repositories;
 
-import oop2026_groupIT25XX_online_learning.entities.Course;
+import edu.aitu.oop3.entities.Course;
 
 import java.util.List;
 import java.util.Optional;
