@@ -73,8 +73,10 @@ public class Main {
                     case "3" -> {
                         System.out.print("Course id: ");
                         long courseId = Long.parseLong(sc.nextLine());
+
                         System.out.print("Lesson title: ");
                         String title = sc.nextLine();
+
                         System.out.print("Content: ");
                         String content = sc.nextLine();
 
