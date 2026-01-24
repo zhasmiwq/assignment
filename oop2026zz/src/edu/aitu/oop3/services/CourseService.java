@@ -1,9 +1,9 @@
 package edu.aitu.oop3.services;
 
-import oop2026_groupIT25XX_online_learning.entities.Course;
-import oop2026_groupIT25XX_online_learning.exceptions.NotFoundException;
-import oop2026_groupIT25XX_online_learning.repositories.CourseRepository;
-import oop2026_groupIT25XX_online_learning.repositories.UserRepository;
+import edu.aitu.oop3.entities.Course;
+import edu.aitu.oop3.exceptions.NotFoundException;
+import edu.aitu.oop3.repositories.CourseRepository;
+import edu.aitu.oop3.repositories.UserRepository;
 
 import java.util.List;
 

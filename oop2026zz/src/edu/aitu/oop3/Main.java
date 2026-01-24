@@ -1,0 +1,142 @@
+package edu.aitu.oop3;
+
+import edu.aitu.oop3.data.IDB;
+import edu.aitu.oop3.data.PostgresDB;
+import edu.aitu.oop3.entities.Course;
+import edu.aitu.oop3.entities.Lesson;
+import edu.aitu.oop3.entities.User;
+import edu.aitu.oop3.exceptions.DatabaseException;
+import edu.aitu.oop3.exceptions.NotFoundException;
+import edu.aitu.oop3.repositories.*;
+import edu.aitu.oop3.services.CourseService;
+import edu.aitu.oop3.services.LessonService;
+import edu.aitu.oop3.services.UserService;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        IDB db = new PostgresDB(
+                "jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require",
+                "postgres.gmnhoitoccbzuveofkns",
+                "askarova0910"
+        );
+
+        UserRepository userRepo = new UserRepositoryImpl(db);
+        CourseRepository courseRepo = new CourseRepositoryImpl(db);
+        LessonRepository lessonRepo = new LessonRepositoryImpl(db);
+
+        UserService userService = new UserService(userRepo);
+        CourseService courseService = new CourseService(courseRepo, userRepo);
+        LessonService lessonService = new LessonService(lessonRepo, courseRepo);
+
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n=== Online Learning Platform ===");
+            System.out.println("1) Register user");
+            System.out.println("2) Create course");
+            System.out.println("3) Add lesson");
+            System.out.println("4) Show USERS");
+            System.out.println("5) Show COURSES");
+            System.out.println("6) Show LESSONS by courseId");
+            System.out.println("0) Exit");
+            System.out.print("Choose: ");
+
+            String ch = sc.nextLine().trim();
+
+            try {
+                switch (ch) {
+                    case "1" -> {
+                        System.out.print("Full name: ");
+                        String name = sc.nextLine();
+                        System.out.print("Email: ");
+                        String email = sc.nextLine();
+                        System.out.print("Role (STUDENT/TEACHER): ");
+                        String role = sc.nextLine().trim().toUpperCase();
+
+                        User u = userService.register(name, email, role);
+                        System.out.println("OK user id=" + u.getId());
+                    }
+                    case "2" -> {
+                        System.out.print("Teacher id: ");
+                        long teacherId = Long.parseLong(sc.nextLine());
+                        System.out.print("Title: ");
+                        String title = sc.nextLine();
+                        System.out.print("Description: ");
+                        String desc = sc.nextLine();
+
+                        Course c = courseService.createCourse(title, desc, teacherId);
+                        System.out.println("OK course id=" + c.getId());
+                    }
+                    case "3" -> {
+                        System.out.print("Course id: ");
+                        long courseId = Long.parseLong(sc.nextLine());
+                        System.out.print("Lesson title: ");
+                        String title = sc.nextLine();
+                        System.out.print("Content: ");
+                        String content = sc.nextLine();
+
+                        Lesson l = lessonService.addLesson(courseId, title, content);
+                        System.out.println("OK lesson id=" + l.getId());
+                    }
+                    case "4" -> printUsers(userService.listUsers());
+                    case "5" -> printCourses(courseService.listCourses());
+                    case "6" -> {
+                        System.out.print("Course id: ");
+                        long courseId = Long.parseLong(sc.nextLine());
+                        printLessons(lessonService.listLessons(courseId), courseId);
+                    }
+                    case "0" -> { System.out.println("Bye"); return; }
+                    default -> System.out.println("Unknown option");
+                }
+            } catch (NotFoundException e) {
+                System.out.println("NOT FOUND: " + e.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println("VALIDATION: " + e.getMessage());
+            } catch (DatabaseException e) {
+                System.out.println("DB ERROR: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void printUsers(List<User> users) {
+        System.out.println("\n--- USERS ---");
+        if (users.isEmpty()) { System.out.println("No users"); return; }
+        System.out.printf("%-5s | %-20s | %-25s | %-10s%n", "ID", "FULL_NAME", "EMAIL", "ROLE");
+        System.out.println("---------------------------------------------------------------");
+        for (User u : users) {
+            System.out.printf("%-5d | %-20s | %-25s | %-10s%n",
+                    u.getId(), cut(u.getFullName(),20), cut(u.getEmail(),25), cut(u.getRole(),10));
+        }
+    }
+
+    private static void printCourses(List<Course> courses) {
+        System.out.println("\n--- COURSES ---");
+        if (courses.isEmpty()) { System.out.println("No courses"); return; }
+        System.out.printf("%-5s | %-25s | %-10s | %-30s%n", "ID", "TITLE", "TEACHER_ID", "DESCRIPTION");
+        System.out.println("--------------------------------------------------------------------------");
+        for (Course c : courses) {
+            System.out.printf("%-5d | %-25s | %-10d | %-30s%n",
+                    c.getId(), cut(c.getTitle(),25), c.getTeacherId(), cut(c.getDescription(),30));
+        }
+    }
+
+    private static void printLessons(List<Lesson> lessons, long courseId) {
+        System.out.println("\n--- LESSONS (courseId=" + courseId + ") ---");
+        if (lessons.isEmpty()) { System.out.println("No lessons"); return; }
+        System.out.printf("%-5s | %-10s | %-25s | %-30s%n", "ID", "COURSE_ID", "TITLE", "CONTENT");
+        System.out.println("--------------------------------------------------------------------------");
+        for (Lesson l : lessons) {
+            System.out.printf("%-5d | %-10d | %-25s | %-30s%n",
+                    l.getId(), l.getCourseId(), cut(l.getTitle(),25), cut(l.getContent(),30));
+        }
+    }
+
+    private static String cut(String s, int max) {
+        if (s == null) return "";
+        s = s.replace("\n"," ").trim();
+        return s.length() <= max ? s : s.substring(0, max-3) + "...";
+    }
+}

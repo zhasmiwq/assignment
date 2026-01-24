@@ -18,7 +18,7 @@ public class LessonRepositoryImpl implements LessonRepository {
 
     @Override
     public Lesson create(Lesson lesson) {
-        String sql = "insert into lessons (course_id, title, content) values (1,2,3) returning id";
+        String sql = "insert into lessons (course_id, title, content) values (?,?,?) returning id";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 

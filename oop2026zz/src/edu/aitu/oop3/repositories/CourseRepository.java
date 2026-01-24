@@ -10,4 +10,6 @@ public interface CourseRepository {
     Optional<Course> findById(long id);
     List<Course> findAll();
     List<Course> findByTeacher(long teacherId);
+
+    boolean delete(long id);
 }

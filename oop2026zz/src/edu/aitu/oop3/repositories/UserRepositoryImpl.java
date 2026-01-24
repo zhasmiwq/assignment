@@ -39,20 +39,30 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findById(long id) {
-        String sql = "select id, users.full_name, email, role from users where id=1";
+        String sql = "select id, full_name, email, role from users where id=?";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
             st.setLong(1, id);
+
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) return Optional.empty();
-                return Optional.of(map(rs));
+
+                User u = new User();
+                u.setId(rs.getLong("id"));
+                u.setFullName(rs.getString("full_name"));
+                u.setEmail(rs.getString("email"));
+                u.setRole(rs.getString("role"));
+                return Optional.of(u);
             }
 
         } catch (SQLException e) {
+            // Увидим реальную причину в консоли:
+            e.printStackTrace();
             throw new DatabaseException("DB error: find user by id", e);
         }
     }
+
 
     @Override
     public Optional<User> findByEmail(String email) {

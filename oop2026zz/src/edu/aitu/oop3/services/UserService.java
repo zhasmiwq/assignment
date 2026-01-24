@@ -4,6 +4,8 @@ import edu.aitu.oop3.entities.User;
 import edu.aitu.oop3.exceptions.NotFoundException;
 import edu.aitu.oop3.repositories.UserRepository;
 
+import java.util.List;
+
 public class UserService {
     private final UserRepository repo;
 
@@ -24,5 +26,9 @@ public class UserService {
 
     public User getUser(long id) {
         return repo.findById(id).orElseThrow(() -> new NotFoundException("User not found: id=" + id));
+    }
+
+    public List<User> listUsers() {
+        return null;
     }
 }

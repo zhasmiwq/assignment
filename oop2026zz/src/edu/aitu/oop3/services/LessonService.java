@@ -1,9 +1,9 @@
 package edu.aitu.oop3.services;
 
-import oop2026_groupIT25XX_online_learning.entities.Lesson;
-import oop2026_groupIT25XX_online_learning.exceptions.NotFoundException;
-import oop2026_groupIT25XX_online_learning.repositories.CourseRepository;
-import oop2026_groupIT25XX_online_learning.repositories.LessonRepository;
+import edu.aitu.oop3.entities.Lesson;
+import edu.aitu.oop3.exceptions.NotFoundException;
+import edu.aitu.oop3.repositories.CourseRepository;
+import edu.aitu.oop3.repositories.LessonRepository;
 
 import java.util.List;
 
@@ -16,9 +16,10 @@ public class LessonService {
         this.courseRepo = courseRepo;
     }
 
-    public Lesson addLesson(long courseId, String title, String content, int position) {
+    public Lesson addLesson(long courseId, String title, String content) {
         if (title == null || title.trim().length() < 3)
             throw new IllegalArgumentException("Lesson title must be at least 3 chars");
+        int position = 0;
         if (position <= 0)
             throw new IllegalArgumentException("Position must be > 0");
 
