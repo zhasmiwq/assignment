@@ -6,7 +6,7 @@ public class Lesson {
     private String title;
     private String content;
 
-    public Lesson() {}
+    public Lesson(int i, long courseId, String trim, String content, int position) {}
 
     public Lesson(long id, long courseId, String title, String content) {
         this.id = id;
