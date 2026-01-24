@@ -4,4 +4,3 @@ public class DatabaseException extends RuntimeException {
         super(message, cause);
     }
 }
-

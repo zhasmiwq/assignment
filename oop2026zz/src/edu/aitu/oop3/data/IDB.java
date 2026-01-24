@@ -1,6 +1,7 @@
 package edu.aitu.oop3.data;
-
 import java.sql.Connection;
+import java.sql.SQLException;
 
-public class IDB {
+public interface IDB {
+    Connection getConnection() throws SQLException;
 }
