@@ -1,9 +1,9 @@
 package edu.aitu.oop3.repositories;
 package oop2026_groupIT25XX_online_learning.repositories;
 
-import oop2026_groupIT25XX_online_learning.data.IDB;
-import oop2026_groupIT25XX_online_learning.entities.Lesson;
-import oop2026_groupIT25XX_online_learning.exceptions.DatabaseException;
+import edu.aitu.oop3.data.IDB;
+import edu.aitu.oop3.entities.Lesson;
+import edu.aitu.oop3.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
