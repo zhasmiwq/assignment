@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CourseRepositoryImpl {
+public class CourseRepositoryImpl implements CourseRepository {
     private final IDB db;
 
     public CourseRepositoryImpl(IDB db) {
@@ -18,7 +18,7 @@ public class CourseRepositoryImpl {
 
     @Override
     public Course create(Course course) {
-        String sql = "insert into courses(title, description, teacher_id) values () returning id";
+        String sql = "insert into courses(title, description, teacher_id) values (?,?,?) returning id";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
@@ -26,8 +26,9 @@ public class CourseRepositoryImpl {
             st.setString(2, course.getDescription());
             st.setLong(3, course.getTeacherId());
 
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) course.setId(rs.getLong(1));
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) course.setId(rs.getLong(1));
+            }
             return course;
 
         } catch (SQLException e) {
@@ -80,11 +81,25 @@ public class CourseRepositoryImpl {
             st.setLong(1, teacherId);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) list.add(map(rs));
-                return list;
             }
+            return list;
 
         } catch (SQLException e) {
             throw new DatabaseException("DB error: list courses by teacher", e);
+        }
+    }
+
+    @Override
+    public boolean delete(long id) {
+        String sql = "delete from courses where id=?";
+        try (Connection con = db.getConnection();
+             PreparedStatement st = con.prepareStatement(sql)) {
+
+            st.setLong(1, id);
+            return st.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new DatabaseException("DB error: delete course", e);
         }
     }
 

@@ -1,5 +1,4 @@
 package edu.aitu.oop3.repositories;
-package oop2026_groupIT25XX_online_learning.repositories;
 
 import edu.aitu.oop3.data.IDB;
 import edu.aitu.oop3.entities.Lesson;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class LessonRepositoryImpl {
+public class LessonRepositoryImpl implements LessonRepository {
     private final IDB db;
 
     public LessonRepositoryImpl(IDB db) {
@@ -19,17 +18,17 @@ public class LessonRepositoryImpl {
 
     @Override
     public Lesson create(Lesson lesson) {
-        String sql = "insert into lessons(course_id, title, content, position) values (?,?,?,?) returning id";
+        String sql = "insert into lessons (course_id, title, content) values (1,2,3) returning id";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
             st.setLong(1, lesson.getCourseId());
             st.setString(2, lesson.getTitle());
             st.setString(3, lesson.getContent());
-            st.setInt(4, lesson.getPosition());
 
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) lesson.setId(rs.getLong(1));
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) lesson.setId(rs.getLong(1));
+            }
             return lesson;
 
         } catch (SQLException e) {
@@ -39,7 +38,7 @@ public class LessonRepositoryImpl {
 
     @Override
     public Optional<Lesson> findById(long id) {
-        String sql = "select id, course_id, title, content, position from lessons where id=?";
+        String sql = "select id, course_id, title, content from lessons where id=?";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
@@ -56,7 +55,7 @@ public class LessonRepositoryImpl {
 
     @Override
     public List<Lesson> findByCourse(long courseId) {
-        String sql = "select id, course_id, title, content, position from lessons where course_id=? order by position";
+        String sql = "select id, course_id, title, content from lessons where course_id=? order by id";
         List<Lesson> list = new ArrayList<>();
 
         try (Connection con = db.getConnection();
@@ -65,8 +64,8 @@ public class LessonRepositoryImpl {
             st.setLong(1, courseId);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) list.add(map(rs));
-                return list;
             }
+            return list;
 
         } catch (SQLException e) {
             throw new DatabaseException("DB error: list lessons", e);
@@ -92,8 +91,7 @@ public class LessonRepositoryImpl {
                 rs.getLong("id"),
                 rs.getLong("course_id"),
                 rs.getString("title"),
-                rs.getString("content"),
-                rs.getInt("position")
+                rs.getString("content")
         );
     }
 }

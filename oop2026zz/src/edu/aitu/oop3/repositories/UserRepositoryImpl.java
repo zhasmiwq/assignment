@@ -1,16 +1,15 @@
 package edu.aitu.oop3.repositories;
-package oop2026_groupIT25XX_online_learning.repositories;
 
-import oop2026_groupIT25XX_online_learning.data.IDB;
-import oop2026_groupIT25XX_online_learning.entities.User;
-import oop2026_groupIT25XX_online_learning.exceptions.DatabaseException;
+import edu.aitu.oop3.data.IDB;
+import edu.aitu.oop3.entities.User;
+import edu.aitu.oop3.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepositoryImpl {
+public class UserRepositoryImpl implements UserRepository {
     private final IDB db;
 
     public UserRepositoryImpl(IDB db) {
@@ -19,6 +18,7 @@ public class UserRepositoryImpl {
 
     @Override
     public User create(User user) {
+        User result;
         String sql = "insert into users(full_name, email, role) values (?,?,?) returning id";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
@@ -29,16 +29,17 @@ public class UserRepositoryImpl {
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) user.setId(rs.getLong(1));
-            return user;
+            result = user;
 
         } catch (SQLException e) {
             throw new DatabaseException("DB error: create user", e);
         }
+        return result;
     }
 
     @Override
     public Optional<User> findById(long id) {
-        String sql = "select id, full_name, email, role from users where id=?";
+        String sql = "select id, users.full_name, email, role from users where id=1";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
@@ -55,7 +56,7 @@ public class UserRepositoryImpl {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        String sql = "select id, full_name, email, role from users where email=?";
+        String sql = "select id, full_name, email, role from users where email=1";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
@@ -72,7 +73,7 @@ public class UserRepositoryImpl {
 
     @Override
     public List<User> findAll() {
-        String sql = "select id, full_name, email, role from users order by id";
+        String sql = "select id, users.full_name, email, role from users order by id";
         List<User> list = new ArrayList<>();
 
         try (Connection con = db.getConnection();
