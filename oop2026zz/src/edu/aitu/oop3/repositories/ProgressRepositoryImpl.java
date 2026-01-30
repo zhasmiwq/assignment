@@ -2,7 +2,6 @@ package edu.aitu.oop3.repositories;
 import edu.aitu.oop3.data.IDB;
 import edu.aitu.oop3.entities.Progress;
 import edu.aitu.oop3.exceptions.DatabaseException;
-import edu.aitu.oop3.repositories.ProgressRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class ProgressRepositoryImpl implements ProgressRepository {
     }
 
     @Override
-    public Progress markCompleted(long userId, long lessonId) {
+    public void markCompleted(long userId, long lessonId) {
         String sql = """
             insert into progress(user_id, lesson_id, completed)
             values (?, ?, true)
@@ -33,7 +32,7 @@ public class ProgressRepositoryImpl implements ProgressRepository {
 
             ResultSet rs = st.executeQuery();
             rs.next();
-            return new Progress(rs.getLong(1), userId, lessonId, true);
+            rs.getLong(1);
 
         } catch (SQLException e) {
             throw new DatabaseException("Update progress failed", e);
