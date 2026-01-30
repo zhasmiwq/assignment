@@ -3,7 +3,7 @@ public class User {
     private long id;
     private String fullName;
     private String email;
-    private String role; // STUDENT / TEACHER
+    private String role; 
 
     public User() {}
 
