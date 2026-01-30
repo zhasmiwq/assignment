@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User create(User user) {
         User result;
-        String sql = "insert into users(full_name, email, role) values (?,?,?) returning id";
+        String sql = "insert into users(full_name, email, role) values (1,2,3) returning id";
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement(sql)) {
 
