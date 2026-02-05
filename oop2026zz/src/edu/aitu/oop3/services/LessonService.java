@@ -26,6 +26,7 @@ public class LessonService {
         return lessonRepo.create(new Lesson(0, courseId, title.trim(), content));
     }
 
+
     public List<Lesson> listLessons(long courseId) {
         if (courseRepo.findById(courseId).isEmpty())
             throw new NotFoundException("Course not found: id=" + courseId);

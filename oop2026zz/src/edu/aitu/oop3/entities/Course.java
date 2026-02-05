@@ -1,28 +1,52 @@
 package edu.aitu.oop3.entities;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Course {
-    private long id;
-    private String title;
-    private String description;
-    private long teacherId;
+    private final int id;
+    private final String title;
+    private final String description;
+    private final List<Lesson> lessons;
+    private final List<String> tags;
+    private final boolean archived;
 
-    public Course() {}
-
-    public Course(long id, String title, String description, long teacherId) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.teacherId = teacherId;
+    private Course(Builder b) {
+        this.id = b.id;
+        this.title = b.title;
+        this.description = b.description;
+        this.lessons = new ArrayList<>(b.lessons);
+        this.tags = new ArrayList<>(b.tags);
+        this.archived = b.archived;
     }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
-
+    public int getId() { return id; }
     public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public List<Lesson> getLessons() { return Collections.unmodifiableList(lessons); }
+    public List<String> getTags() { return Collections.unmodifiableList(tags); }
+    public boolean isArchived() { return archived; }
 
-    public long getTeacherId() { return teacherId; }
-    public void setTeacherId(long teacherId) { this.teacherId = teacherId; }
+    public static Builder builder() { return new Builder(); }
+
+    public static final class Builder {
+        private int id;
+        private String title;
+        private String description;
+        private final List<Lesson> lessons = new ArrayList<>();
+        private final List<String> tags = new ArrayList<>();
+        private boolean archived;
+
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder title(String t) { this.title = t; return this; }
+        public Builder description(String d) { this.description = d; return this; }
+        public Builder addLesson(Lesson l) { this.lessons.add(l); return this; }
+        public Builder addTag(String tag) { this.tags.add(tag); return this; }
+        public Builder archived(boolean v) { this.archived = v; return this; }
+
+        public Course build() {
+            if (title == null || title.isBlank()) throw new IllegalStateException("Course title is required");
+            return new Course(this);
+        }
+    }
 }

@@ -1,26 +1,20 @@
-package edu.aitu.oop3.entities;
+package assignment4.entities;
 
-public class Lesson {
-    private long id;
-    private long courseId;
-    private String title;
-    private String content;
-    public Lesson(long id, long courseId, String title, String content) {
+public abstract class Lesson {
+    private final int id;
+    private final int courseId;
+    private final String title;
+    private final LessonType type;
+
+    protected Lesson(int id, int courseId, String title, LessonType type) {
         this.id = id;
         this.courseId = courseId;
         this.title = title;
-        this.content = content;
+        this.type = type;
     }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
-
-    public long getCourseId() { return courseId; }
-    public void setCourseId(long courseId) { this.courseId = courseId; }
-
+    public int getId() { return id; }
+    public int getCourseId() { return courseId; }
     public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
+    public LessonType getType() { return type; }
 }

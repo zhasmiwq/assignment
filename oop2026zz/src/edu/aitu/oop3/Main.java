@@ -17,11 +17,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        IDB db = new PostgresDB(
-                "jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require",
-                "postgres.gmnhoitoccbzuveofkns",
-                "askarova0910"
-        );
+        IDB db;
+        db = new PostgresDB();
+
 
         UserRepository userRepo = new UserRepositoryImpl(db);
         CourseRepository courseRepo = new CourseRepositoryImpl(db);
@@ -76,7 +74,6 @@ public class Main {
 
                         System.out.print("Lesson title: ");
                         String title = sc.nextLine();
-
                         System.out.print("Content: ");
                         String content = sc.nextLine();
 
@@ -103,42 +100,8 @@ public class Main {
         }
     }
 
-    private static void printUsers(List<User> users) {
-        System.out.println("\n--- USERS ---");
-        if (users.isEmpty()) { System.out.println("No users"); return; }
-        System.out.printf("%-5s | %-20s | %-25s | %-10s%n", "ID", "FULL_NAME", "EMAIL", "ROLE");
-        System.out.println("---------------------------------------------------------------");
-        for (User u : users) {
-            System.out.printf("%-5d | %-20s | %-25s | %-10s%n",
-                    u.getId(), cut(u.getFullName(),20), cut(u.getEmail(),25), cut(u.getRole(),10));
-        }
-    }
-
-    private static void printCourses(List<Course> courses) {
-        System.out.println("\n--- COURSES ---");
-        if (courses.isEmpty()) { System.out.println("No courses"); return; }
-        System.out.printf("%-5s | %-25s | %-10s | %-30s%n", "ID", "TITLE", "TEACHER_ID", "DESCRIPTION");
-        System.out.println("--------------------------------------------------------------------------");
-        for (Course c : courses) {
-            System.out.printf("%-5d | %-25s | %-10d | %-30s%n",
-                    c.getId(), cut(c.getTitle(),25), c.getTeacherId(), cut(c.getDescription(),30));
-        }
-    }
-
-    private static void printLessons(List<Lesson> lessons, long courseId) {
-        System.out.println("\n--- LESSONS (courseId=" + courseId + ") ---");
-        if (lessons.isEmpty()) { System.out.println("No lessons"); return; }
-        System.out.printf("%-5s | %-10s | %-25s | %-30s%n", "ID", "COURSE_ID", "TITLE", "CONTENT");
-        System.out.println("--------------------------------------------------------------------------");
-        for (Lesson l : lessons) {
-            System.out.printf("%-5d | %-10d | %-25s | %-30s%n",
-                    l.getId(), l.getCourseId(), cut(l.getTitle(),25), cut(l.getContent(),30));
-        }
-    }
-
-    private static String cut(String s, int max) {
-        if (s == null) return "";
-        s = s.replace("\n"," ").trim();
-        return s.length() <= max ? s : s.substring(0, max-3) + "...";
-    }
+    private static void printUsers(List<User> users) {}
+    private static void printCourses(List<Course> courses) {}
+    private static void printLessons(List<Lesson> lessons, long courseId) {}
+    private static void cut(String s, int max) {}
 }
