@@ -1,4 +1,12 @@
 package edu.aitu.oop3.entities;
 
-public class QuizLesson {
+public final class QuizLesson extends Lesson {
+    private final int questionsCount;
+
+    public QuizLesson(int id, int courseId, String title, int questionsCount) {
+        super(id, courseId, title, LessonType.QUIZ);
+        this.questionsCount = questionsCount;
+    }
+
+    public int getQuestionsCount() { return questionsCount; }
 }

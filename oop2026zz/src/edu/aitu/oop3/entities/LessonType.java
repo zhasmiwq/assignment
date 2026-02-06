@@ -1,4 +1,5 @@
 package edu.aitu.oop3.entities;
 
-public class LessonType {
+public enum LessonType {
+    VIDEO, TEXT, QUIZ
 }
