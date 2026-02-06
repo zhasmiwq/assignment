@@ -1,4 +1,5 @@
 package edu.aitu.oop3.services;
+
 import edu.aitu.oop3.entities.Course;
 import edu.aitu.oop3.patterns.CourseCatalog;
 import edu.aitu.oop3.util.Page;
@@ -7,7 +8,6 @@ import java.util.List;
 
 public class CourseSearchService {
 
-    // New feature uses: Singleton + lambdas + Page<T>
     public Page<Course> searchByTag(String tag, int page, int size) {
         List<Course> filtered = CourseCatalog.getInstance().getCourses()
                 .stream()
@@ -19,9 +19,5 @@ public class CourseSearchService {
         List<Course> items = (from >= to) ? List.of() : filtered.subList(from, to);
 
         return new Page<>(items, page, size, filtered.size());
-    }
-
-    public Page<Course> search(String kw, int page, int size) {
-        return null;
     }
 }
