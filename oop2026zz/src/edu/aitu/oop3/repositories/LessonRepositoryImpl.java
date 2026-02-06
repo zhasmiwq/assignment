@@ -26,6 +26,7 @@ public class LessonRepositoryImpl implements LessonRepository {
             st.setString(2, lesson.getTitle());
             st.setString(3, lesson.getContent());
 
+
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) lesson.setId(rs.getLong(1));
             }
@@ -93,5 +94,6 @@ public class LessonRepositoryImpl implements LessonRepository {
                 rs.getString("title"),
                 rs.getString("content")
         );
+
     }
 }

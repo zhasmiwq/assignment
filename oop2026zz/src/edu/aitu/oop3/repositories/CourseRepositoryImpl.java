@@ -24,7 +24,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
             st.setString(1, course.getTitle());
             st.setString(2, course.getDescription());
-            st.setLong(3, course.getTeacherId());
+            st.setLong(3, (Long) course.getTeacherId());
 
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) course.setId(rs.getLong(1));

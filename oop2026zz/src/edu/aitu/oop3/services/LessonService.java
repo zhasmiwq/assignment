@@ -1,6 +1,7 @@
 package edu.aitu.oop3.services;
 
 import edu.aitu.oop3.entities.Lesson;
+import edu.aitu.oop3.entities.LessonType;
 import edu.aitu.oop3.exceptions.NotFoundException;
 import edu.aitu.oop3.repositories.CourseRepository;
 import edu.aitu.oop3.repositories.LessonRepository;
@@ -16,7 +17,7 @@ public class LessonService {
         this.courseRepo = courseRepo;
     }
 
-    public Lesson addLesson(long courseId, String title, String content) {
+    public Lesson addLesson(long courseId, LessonType type, String title, String content) {
         if (title == null || title.trim().length() < 3)
             throw new IllegalArgumentException("Lesson title must be at least 3 chars");
 

@@ -4,20 +4,23 @@ import java.util.Collections;
 import java.util.List;
 
 public class Course {
-    private final int id;
-    private final String title;
-    private final String description;
-    private final List<Lesson> lessons;
-    private final List<String> tags;
-    private final boolean archived;
+    private int id = 0;
+    private String title;
+    private String description;
+    private List<Lesson> lessons;
+    public List<String> tags;
+    public boolean archived;
 
-    private Course(Builder b) {
+    public Course(Builder b) {
         this.id = b.id;
         this.title = b.title;
         this.description = b.description;
         this.lessons = new ArrayList<>(b.lessons);
         this.tags = new ArrayList<>(b.tags);
         this.archived = b.archived;
+    }
+
+    public Course(long id, String trim, String description, long teacherId) {
     }
 
     public int getId() { return id; }
@@ -28,6 +31,14 @@ public class Course {
     public boolean isArchived() { return archived; }
 
     public static Builder builder() { return new Builder(); }
+
+    public Object getTeacherId() {
+        return null;
+    }
+
+    public void setId(long id) {
+        this.id = (int) id;
+    }
 
     public static final class Builder {
         private int id;
@@ -41,12 +52,17 @@ public class Course {
         public Builder title(String t) { this.title = t; return this; }
         public Builder description(String d) { this.description = d; return this; }
         public Builder addLesson(Lesson l) { this.lessons.add(l); return this; }
-        public Builder addTag(String tag) { this.tags.add(tag); return this; }
+        public void addTag(String tag) { this.tags.add(tag);
+        }
         public Builder archived(boolean v) { this.archived = v; return this; }
 
         public Course build() {
             if (title == null || title.isBlank()) throw new IllegalStateException("Course title is required");
             return new Course(this);
+        }
+
+        public Builder teacherId(long teacherId) {
+            return null;
         }
     }
 }

@@ -1,9 +1,9 @@
 package edu.aitu.oop3.entities;
-public final class TextLesson extends assignment4.entities.Lesson {
+public final class TextLesson extends edu.aitu.oop3.entities.Lesson {
     private final String text;
 
     public TextLesson(int id, int courseId, String title, String text) {
-        super(id, courseId, title, LessonType.TEXT);
+        super(id, courseId, title, String.valueOf(LessonType.TEXT));
         this.text = text;
     }
 

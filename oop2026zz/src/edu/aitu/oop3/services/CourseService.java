@@ -40,6 +40,10 @@ public class CourseService {
     }
     public static Builder builder() { return new Builder(); }
 
+    public Course createCourse(Course build) {
+        return null;
+    }
+
     public static final class Builder {
         private long id;
         private String title;
