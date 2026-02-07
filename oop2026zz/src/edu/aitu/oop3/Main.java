@@ -31,7 +31,6 @@ public class Main {
         CourseService courseService = new CourseService(courseRepo, userRepo);
         LessonService lessonService = new LessonService(lessonRepo, courseRepo);
 
-        // Assignment 4: Singleton catalog
         CourseCatalog.getInstance().attachRepository(courseRepo);
 
         CourseSearchService courseSearchService = new CourseSearchService();

@@ -7,6 +7,5 @@ public final class VideoLesson extends Lesson {
         super(id, courseId, title, String.valueOf(LessonType.VIDEO));
         this.videoUrl = videoUrl;
     }
-
     public String getVideoUrl() { return videoUrl; }
 }
