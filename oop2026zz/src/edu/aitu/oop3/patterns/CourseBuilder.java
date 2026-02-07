@@ -29,8 +29,4 @@ public class CourseBuilder {
         this.tags.add(tag);
         return this;
     }
-
-    public Course build() {
-        return new Course(id, title, teacherId, tags);
-    }
 }

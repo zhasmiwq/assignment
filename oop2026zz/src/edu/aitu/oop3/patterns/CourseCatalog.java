@@ -1,4 +1,5 @@
 package edu.aitu.oop3.patterns;
+
 import edu.aitu.oop3.entities.Course;
 import edu.aitu.oop3.repositories.CourseRepository;
 
@@ -10,6 +11,7 @@ public final class CourseCatalog {
     private static final CourseCatalog INSTANCE = new CourseCatalog();
 
     private final List<Course> cache = new ArrayList<>();
+    private CourseRepository courseRepo; // сохраним репозиторий
 
     private CourseCatalog() {}
 
@@ -26,9 +28,16 @@ public final class CourseCatalog {
         return Collections.unmodifiableList(cache);
     }
 
+
     public void attachRepository(CourseRepository courseRepo) {
+        this.courseRepo = courseRepo;
     }
 
+
     public void refresh() {
+        if (courseRepo == null) {
+            throw new IllegalStateException("CourseRepository is not attached");
+        }
+        setCourses(courseRepo.findAll());
     }
 }
