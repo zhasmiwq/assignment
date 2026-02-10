@@ -20,6 +20,18 @@ public class CourseService {
     }
 
     public Course createCourse(String title, String description, long teacherId) {
+        Course c = Course.builder()
+                .title(title)
+                .description(description)
+                .teacherId(teacherId)
+                .build();
+        return createCourse(c);
+    }
+
+    public Course createCourse(Course course) {
+        if (course == null) throw new IllegalArgumentException("Course is null");
+
+        String title = course.getTitle();
         if (title == null || title.trim().length() < 3)
             throw new IllegalArgumentException("Title must be at least 3 chars");
 
