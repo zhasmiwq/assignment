@@ -1,4 +1,5 @@
 package edu.aitu.oop3.services;
+import edu.aitu.oop3.entities.Progress;
 import edu.aitu.oop3.exceptions.NotFoundException;
 import edu.aitu.oop3.repositories.EnrollmentRepository;
 import edu.aitu.oop3.repositories.LessonRepository;
@@ -24,7 +25,5 @@ public class ProgressService {
         if (enrollmentRepo.find(userId, courseId).isEmpty())
             throw new IllegalStateException("User not enrolled");
 
-        progressRepo.markCompleted(userId, lessonId);
     }
 }
-

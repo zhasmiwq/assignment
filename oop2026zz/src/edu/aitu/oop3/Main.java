@@ -40,13 +40,13 @@ public class Main {
         while (true) {
             System.out.println("\n=== Online Learning Platform ===");
             System.out.println("1) Register user");
-            System.out.println("2) Create course (Builder)");
-            System.out.println("3) Add lesson (simple)");
-            System.out.println("4) Add lesson (Factory: VIDEO/TEXT/QUIZ)");
+            System.out.println("2) Create course");
+            System.out.println("3) Add lesson");
+            System.out.println("4) Add lesson");
             System.out.println("5) Show USERS");
             System.out.println("6) Show COURSES");
             System.out.println("7) Show LESSONS by courseId");
-            System.out.println("8) Search courses (Page<T> + Singleton + lambdas)");
+            System.out.println("8) Search courses");
             System.out.println("0) Exit");
             System.out.print("Choose: ");
 
