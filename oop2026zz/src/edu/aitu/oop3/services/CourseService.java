@@ -15,16 +15,6 @@ public class CourseService {
         this.courseRepo = courseRepo;
         this.userRepo = userRepo;
     }
-
-    public Course createCourse(String title, String description, long teacherId) {
-        Course c = Course.builder()
-                .title(title)
-                .description(description)
-                .teacherId(teacherId)
-                .build();
-        return createCourse(c);
-    }
-
     public Course createCourse(Course course) {
         if (course == null) throw new IllegalArgumentException("Course is null");
 
@@ -33,6 +23,7 @@ public class CourseService {
             throw new IllegalArgumentException("Title must be at least 3 chars");
 
         long teacherId = course.getTeacherId();
+
         var teacherOpt = userRepo.findById(teacherId);
         if (teacherOpt.isEmpty()) throw new NotFoundException("Teacher not found: id=" + teacherId);
         if (!"TEACHER".equals(teacherOpt.get().getRole()))
@@ -40,6 +31,7 @@ public class CourseService {
 
         return courseRepo.create(course);
     }
+
 
     public List<Course> listCourses() {
         return courseRepo.findAll();

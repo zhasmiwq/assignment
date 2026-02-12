@@ -104,11 +104,11 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     private Course map(ResultSet rs) throws SQLException {
-        return new Course(
-                rs.getLong("id"),
-                rs.getString("title"),
-                rs.getString("description"),
-                rs.getLong("teacher_id")
-        );
+        return Course.builder()
+                .id(rs.getInt("id"))
+                .title(rs.getString("title"))
+                .description(rs.getString("description"))
+                .teacherId(rs.getLong("teacher_id"))
+                .build();
     }
 }
