@@ -1,6 +1,6 @@
 package edu.aitu.oop3.components;
-import edu.aitu.oop3.entities.User;
-import edu.aitu.oop3.services.UserService;
+import edu.aitu.oop3.UserManagementComponent.User;
+import edu.aitu.oop3.UserManagementComponent.UserService;
 
 import java.util.List;
 

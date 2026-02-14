@@ -1,20 +1,25 @@
 package edu.aitu.oop3;
 
+import edu.aitu.oop3.CourseManagementComponent.CourseRepository;
+import edu.aitu.oop3.CourseManagementComponent.CourseRepositoryImpl;
+import edu.aitu.oop3.LearningComponent.LessonRepository;
+import edu.aitu.oop3.LearningComponent.LessonRepositoryImpl;
+import edu.aitu.oop3.UserManagementComponent.UserRepository;
+import edu.aitu.oop3.UserManagementComponent.UserRepositoryImpl;
 import edu.aitu.oop3.data.IDB;
 import edu.aitu.oop3.data.PostgresDB;
-import edu.aitu.oop3.entities.Course;
-import edu.aitu.oop3.entities.Lesson;
-import edu.aitu.oop3.entities.LessonType;
-import edu.aitu.oop3.entities.User;
+import edu.aitu.oop3.CourseManagementComponent.Course;
+import edu.aitu.oop3.LearningComponent.Lesson;
+import edu.aitu.oop3.LearningComponent.LessonType;
+import edu.aitu.oop3.UserManagementComponent.User;
 import edu.aitu.oop3.exceptions.DatabaseException;
-import edu.aitu.oop3.exceptions.NotFoundException;
-import edu.aitu.oop3.patterns.CourseCatalog;
-import edu.aitu.oop3.repositories.*;
-import edu.aitu.oop3.services.CourseSearchService;
-import edu.aitu.oop3.services.CourseService;
-import edu.aitu.oop3.services.LessonService;
-import edu.aitu.oop3.services.UserService;
-import edu.aitu.oop3.util.Page;
+import edu.aitu.oop3.UserManagementComponent.NotFoundException;
+import edu.aitu.oop3.CourseManagementComponent.CourseCatalog;
+import edu.aitu.oop3.CourseManagementComponent.CourseSearchService;
+import edu.aitu.oop3.CourseManagementComponent.CourseService;
+import edu.aitu.oop3.LearningComponent.LessonService;
+import edu.aitu.oop3.UserManagementComponent.UserService;
+import edu.aitu.oop3.CourseManagementComponent.Page;
 
 import java.util.List;
 import java.util.Scanner;

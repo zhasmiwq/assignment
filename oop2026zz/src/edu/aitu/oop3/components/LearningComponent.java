@@ -1,9 +1,9 @@
 package edu.aitu.oop3.components;
 
-import edu.aitu.oop3.entities.Lesson;
-import edu.aitu.oop3.entities.LessonType;
-import edu.aitu.oop3.services.LessonService;
-import edu.aitu.oop3.services.ProgressService;
+import edu.aitu.oop3.LearningComponent.Lesson;
+import edu.aitu.oop3.LearningComponent.LessonType;
+import edu.aitu.oop3.LearningComponent.LessonService;
+import edu.aitu.oop3.LearningComponent.ProgressService;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class LearningComponent {
     public List<Lesson> listLessons(long courseId) {
         return lessonService.listLessons(courseId);
     }
-    
+
     public void completeLesson(long userId, long courseId, long lessonId) {
         progressService.completeLesson(userId, courseId, lessonId);
     }

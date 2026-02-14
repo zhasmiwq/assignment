@@ -28,4 +28,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-config.properties
+src/resourses/config.properties

@@ -1,7 +1,7 @@
 package edu.aitu.oop3.components;
 
-import edu.aitu.oop3.entities.Course;
-import edu.aitu.oop3.services.CourseService;
+import edu.aitu.oop3.CourseManagementComponent.Course;
+import edu.aitu.oop3.CourseManagementComponent.CourseService;
 
 import java.util.List;
 
